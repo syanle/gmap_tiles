@@ -50,9 +50,9 @@ def merge_tiles(zoom, lat_start, lat_stop, lon_start, lon_stop, satellite=True):
 
 if __name__ == "__main__":
     
-    zoom = 15
+    zoom = 20
 
-    lat_start, lon_start = 46.53, 6.6
-    lat_stop, lon_stop = 46.49, 6.7
+    lat_start, lon_start = 28.77, 119.88
+    lat_stop, lon_stop = 28.63, 120.07
     
     merge_tiles(zoom, lat_start, lat_stop, lon_start, lon_stop, satellite=True)
