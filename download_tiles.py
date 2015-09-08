@@ -52,7 +52,7 @@ def download_tiles(zoom, lat_start, lat_stop, lon_start, lon_stop, satellite=Tru
 			jindu_now += 1
 			time.sleep(random.random() / 10)
 			if jindu_now % 7200 == 0:
-				watime = random.random() + 600
+				watime = random.random() + 30
 				print "wating for ", watime, " s..."
 				time.sleep(watime)
 
