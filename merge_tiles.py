@@ -21,11 +21,14 @@ def merge_tiles(zoom, lat_start, lat_stop, lon_start, lon_stop, satellite=True):
     print "height:", h
     
     result = Image.new("RGBA", (w, h))
-    
+    print "Created!"
+    jindu = 0.00
+    jindu_all = (x_stop - x_start) * (y_stop - y_start)
     for x in xrange(x_start, x_stop):
         for y in xrange(y_start, y_stop):
             
             filename = "%d_%d_%d_%s.%s" % (zoom, x, y, TYPE, ext)
+            filepng = "%d_%d_%d_%s.png" % (zoom, x, y, TYPE)
             
             if not os.path.exists(filename):
                 print "-- missing", filename
@@ -35,18 +38,22 @@ def merge_tiles(zoom, lat_start, lat_stop, lon_start, lon_stop, satellite=True):
             y_paste = h - (y_stop - y) * 256
             
             try:
-                i = Image.open(filename)
+                ii = Image.open(filename)
+                ii.save(filepng)
+                i = Image.open(filepng)
             except Exception, e:
                 print "-- %s, removing %s" % (e, filename)
                 trash_dst = os.path.expanduser("~/.Trash/%s" % filename)
                 os.rename(filename, trash_dst)
                 continue
-            
+            jindu += 1
             result.paste(i, (x_paste, y_paste))
-            
-            del i
+            print ((jindu / jindu_all) * 100) , "%"
+            del i,ii
+            os.remove(filename)
+            os.remove(filepng)
     
-    result.save("map_%s.%s" % (TYPE, ext))
+    result.save("map_%s.png" % (TYPE))
 
 if __name__ == "__main__":
     
